@@ -1,0 +1,39 @@
+[project]
+name = "aipm"
+version = "0.0.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+
+[tool.uv.workspace]
+members = [
+    "apps/text-data-worker",
+    "apps/voice-data-worker"
+]
+
+[tool.uv.sources]
+aipm-text-data-worker = { workspace = true, editable = false }
+aipm-voice-data-worker = { workspace = true, editable = false }
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "ANN"]
+ignore = ["ANN101"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+strict = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true

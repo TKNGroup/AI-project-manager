@@ -1,0 +1,26 @@
+{
+    "name": "@aipm/shared-database",
+    "author": "nikyoff",
+    "version": "1.0.0",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "dependencies": {
+        "@common/shared": "workspace:*",
+        "drizzle-orm": "catalog:",
+        "kysely": "catalog:",
+        "type-fest": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@common/tsconfig": "workspace:*",
+        "@common/eslint": "workspace:*",
+        "eslint": "catalog:",
+        "@types/bun": "catalog:",
+        "typescript": "catalog:"
+    }
+}

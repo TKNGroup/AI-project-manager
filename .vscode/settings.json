@@ -1,0 +1,50 @@
+{
+  "editor.tabSize": 4,
+  "editor.inlayHints.fontSize": 12,
+  "editor.inlayHints.padding": true,
+  "editor.pasteAs.preferences": [
+    "text.updateImports.jsts"
+  ],
+  "files.eol": "\n",
+  "explorer.compactFolders": false,
+  "explorer.autoReveal": false,
+  "workbench.tree.indent": 16,
+  "js/ts.preferences.includePackageJsonAutoImports": "auto",
+  "js/ts.suggest.autoImports": true,
+  "js/ts.updateImportsOnPaste.enabled": true,
+  "js/ts.referencesCodeLens.enabled": true,
+  "js/ts.implementationsCodeLens.enabled": true,
+  "js/ts.inlayHints.parameterNames.enabled": "all",
+  "js/ts.inlayHints.variableTypes.enabled": true,
+  "js/ts.inlayHints.enumMemberValues.enabled": true,
+  "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+  "js/ts.tsserver.watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents"
+  },
+  "eslint.workingDirectories": [
+    {
+      "pattern": "./packages/*/"
+    },
+    {
+      "pattern": "./apps/*/"
+    },
+    {
+      "pattern": "./tooling/*/"
+    }
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "git.ignoreLimitWarning": true,
+  
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  "ruff.importStrategy": "fromEnvironment"
+}

@@ -1,0 +1,15 @@
+{
+    "name": "@common/build-tools",
+    "author": "nikyoff",
+    "description": "A package to build bun workspace",
+    "version": "0.0.1",
+    "private": true,
+    "type": "module",
+    "bin": {
+        "build-tools": "bin/build-tools.ts"
+    },
+    "dependencies": {
+        "chokidar": "^4.0.3",
+        "zod": "^4.1.11"
+    }
+}

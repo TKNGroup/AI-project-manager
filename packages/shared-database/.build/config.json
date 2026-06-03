@@ -1,0 +1,15 @@
+{
+    "tasks": [
+        {
+            "id": "build",
+            "command": "bun tsc --project tsconfig.build.json",
+            "inputs": ["src"]
+        },
+        {
+            "id": "watch",
+            "command": "bun tsc --project tsconfig.build.json",
+            "watch": true,
+            "inputs": ["src"]
+        }
+    ]
+}

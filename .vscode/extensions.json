@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "oven.bun-vscode",
+    "TypeScriptTeam.native-preview",
+    "ms-python.python",
+    "charliermarsh.ruff",
+    "ms-python.mypy-type-checker"
+  ]
+}

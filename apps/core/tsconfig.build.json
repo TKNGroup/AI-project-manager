@@ -1,0 +1,12 @@
+{
+  "extends": ["@common/tsconfig/base.json"],
+  "compilerOptions": {
+    "rootDir": "./src/",
+    "outDir": "./dist",
+    "noEmit": false,
+    "tsBuildInfoFile": "dist/tsconfig.build.tsbuildinfo",
+    // TODO: не знаю почему, но в tsgo без этого импорты дублируются
+    "preserveSymlinks": false,
+  },
+  "include": ["src/**/*"]
+}

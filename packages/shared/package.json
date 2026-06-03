@@ -1,0 +1,23 @@
+{
+    "name": "@common/shared",
+    "version": "1.0.0",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "dependencies": {
+        "zod": "catalog:",
+        "uuidv7": "catalog:",
+        "type-fest": "catalog:"
+    },
+    "devDependencies": {
+        "@common/tsconfig": "workspace:*",
+        "@common/eslint": "workspace:*",
+        "@types/bun": "catalog:",
+        "typescript": "catalog:",
+        "eslint": "catalog:"
+    }
+}

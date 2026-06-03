@@ -1,0 +1,20 @@
+{
+    "name": "@common/http",
+    "author": "nikyoff",
+    "version": "1.0.0",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@common/tsconfig": "workspace:*",
+        "@common/eslint": "workspace:*",
+        "@types/bun": "catalog:",
+        "typescript": "catalog:",
+        "eslint": "catalog:"
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "name": "@aipm/telegram-agent",
+    "dependencies": {
+        "@common/logger": "workspace:*",
+        "@common/shared": "workspace:*",
+        "dotenv": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@common/build-tools": "workspace:*",
+        "@common/tsconfig": "workspace:*",
+        "@common/eslint": "workspace:*",
+        "@types/bun": "catalog:",
+        "typescript": "catalog:",
+        "eslint": "catalog:",
+        "@types/pg": "catalog:",
+        "@types/jsonwebtoken": "catalog:"
+    }
+}

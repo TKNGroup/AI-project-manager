@@ -1,0 +1,25 @@
+{
+    "name": "@common/db-tools",
+    "author": "nikyoff",
+    "version": "0.0.1",
+    "description": "Database tools",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "migration:generate": "TS_NODE_PROJECT=../../apps/server/tsconfig.json bun run drizzle-kit generate --config=./src/drizzle.config.ts",
+        "migration:up": "bun ./src/migration-up.ts"
+    },
+    "devDependencies": {
+        "@common/tsconfig": "workspace:*",
+        "@common/eslint": "workspace:*",
+        "@types/bun": "catalog:",
+        "typescript": "catalog:",
+        "eslint": "catalog:",
+        "tsconfig-paths": "^4.2.0",
+        "dotenv": "^17.2.3",
+        "drizzle-kit": "^0.31.5",
+        "drizzle-orm": "^0.44.6",
+        "pg": "^8.16.3",
+        "@types/pg": "^8.15.5"
+    }
+}

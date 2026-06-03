@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "@common/build-tools/build-config.schema.json",
+  "title": "Build Tool Configuration",
+  "description": "Configuration for custom Bun workspace build tool",
+  "type": "object",
+  "properties": {
+    "tasks": {
+      "type": "array",
+      "description": "List of build tasks to execute",
+      "items": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "description": "Name of the build target",
+            "examples": ["build", "test", "lint", "dev"]
+          },
+          "command": {
+            "type": "string",
+            "description": "Command to execute for this target"
+          }
+        },
+        "required": ["target", "command"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["tasks"],
+  "additionalProperties": false
+}

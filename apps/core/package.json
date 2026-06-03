@@ -1,0 +1,25 @@
+{
+    "name": "@aipm/core",
+    "dependencies": {
+        "@common/cqrs": "workspace:*",
+        "@common/http": "workspace:*",
+        "@common/logger": "workspace:*",
+        "@common/shared": "workspace:*",
+        "@aipm/shared-database": "workspace:*",
+        "dotenv": "catalog:",
+        "jsonwebtoken": "catalog:",
+        "kysely": "catalog:",
+        "pg": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@common/build-tools": "workspace:*",
+        "@common/tsconfig": "workspace:*",
+        "@common/eslint": "workspace:*",
+        "@types/bun": "catalog:",
+        "typescript": "catalog:",
+        "eslint": "catalog:",
+        "@types/pg": "catalog:",
+        "@types/jsonwebtoken": "catalog:"
+    }
+}
