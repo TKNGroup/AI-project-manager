@@ -13,9 +13,23 @@ services:
     networks:
       - aipm-network
 
+  aipm-nats:
+    image: nats:2.14.2-alpine3.22
+    command: ["-js", "-m", "8222"]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    volumes:
+      - aipm-nats:/nats/storage
+    networks:
+      - aipm-network
+    restart: unless-stopped
+
 volumes:
   aipm-database:
     name: aipm-database
+  aipm-nats:
+    name: aipm-nats
 
 networks:
   aipm-network:
