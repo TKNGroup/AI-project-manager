@@ -10,7 +10,7 @@
 Курсовая включает два проекта
 1. @aipm/core
 2. @aipm/telegram-agent
-3. @aipm/plain-agent
+3. @aipm/plane-agent
 4. @aipm/yandex-telemost-agent
 5. @aipm/text-data-worker
 6. @aipm/voice-data-worker
@@ -29,9 +29,23 @@
 Заменить `.env.example` на `.env`
 
 ### 3. Создать контейнер Docker
+#### Общие сервисы
 ```bash
 make up
 ```
+
+#### Plane
+```bash
+make plane_up
+```
+
+UI будет доступен на http://localhost:8090 (первый вход: `captain@plane.so` / `password123`).
+
+После настройки workspace и проекта:
+1. Создайте API key в Profile → Personal Access Tokens
+2. Скопируйте workspace slug из URL (`/{slug}/...`)
+3. Скопируйте project ID из настроек проекта
+4. Заполните `apps/plane-agent/.env` (см. `.env.example`)
 
 ### 4. Установить зависимости
 ```bash
@@ -59,13 +73,13 @@ make telegram_agent_build
 make telegram_agent_start
 ```
 
-#### @aipm/plain-agent
+#### @aipm/plane-agent
 ```bash
-make plain_agent_build
+make plane_agent_build
 ```
 
 ```bash
-make plain_agent_start
+make plane_agent_start
 ```
 
 #### @aipm/yandex-telemost-agent
