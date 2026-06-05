@@ -1,6 +1,8 @@
 {
-    "name": "@aipm/plain-agent",
+    "name": "@aipm/plane-agent",
     "dependencies": {
+        "@common/cqrs": "workspace:*",
+        "@common/http": "workspace:*",
         "@common/logger": "workspace:*",
         "@common/shared": "workspace:*",
         "dotenv": "catalog:",
