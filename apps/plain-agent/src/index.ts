@@ -8,7 +8,7 @@ const NODE_ENV: NodeEnv =
     ? "development"
     : (process.env["NODE_ENV"] as NodeEnv);
 
-const logger = Logger.new(NODE_ENV, envConfig.logger.level, "aipm/core");
+const logger = Logger.new(NODE_ENV, envConfig.logger.level, "aipm/pain-agent");
 
 logger.info("starting");
 

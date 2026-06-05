@@ -24,16 +24,4 @@ export const envConfig = envConfigSchema.parse({
   logger: {
     level: envConfigRaw["LOGGER_LEVEL"],
   },
-
-  nats: {
-    url: envConfigRaw["NATS_URL"],
-  },
-
-  plane: {
-    baseUrl: envConfigRaw["PLANE_BASE_URL"],
-    apiKey: envConfigRaw["PLANE_API_KEY"],
-    workspaceSlug: envConfigRaw["PLANE_WORKSPACE_SLUG"],
-    projectId: envConfigRaw["PLANE_PROJECT_ID"],
-    webhookUrl: envConfigRaw["PLANE_WEBHOOK_URL"],
-  },
 });

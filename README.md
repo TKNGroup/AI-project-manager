@@ -10,7 +10,7 @@
 Курсовая включает два проекта
 1. @aipm/core
 2. @aipm/telegram-agent
-3. @aipm/plane-agent
+3. @aipm/plain-agent
 4. @aipm/yandex-telemost-agent
 5. @aipm/text-data-worker
 6. @aipm/voice-data-worker
@@ -32,19 +32,6 @@
 ```bash
 make up
 ```
-
-Для локального Plane (self-hosted через Docker Hub):
-```bash
-make plane_up
-```
-
-UI будет доступен на http://localhost:8090 (первый вход: `captain@plane.so` / `password123`).
-
-После настройки workspace и проекта:
-1. Создайте API key в Profile → Personal Access Tokens
-2. Скопируйте workspace slug из URL (`/{slug}/...`)
-3. Скопируйте project ID из настроек проекта
-4. Заполните `apps/plane-agent/.env` (см. `.env.example`)
 
 ### 4. Установить зависимости
 ```bash
@@ -72,45 +59,13 @@ make telegram_agent_build
 make telegram_agent_start
 ```
 
-#### @aipm/plane-agent
+#### @aipm/plain-agent
 ```bash
-make plane_agent_build
+make plain_agent_build
 ```
 
 ```bash
-make plane_agent_start
-```
-
-Plane agent exposes HTTP CQRS API for kanban integration:
-
-| Command | Purpose |
-| --- | --- |
-| `plane.work-item.create` | Create a Plane work item from detected chat/meeting task |
-| `plane.work-item.update` | Update title, description, assignees, priority, due date or state |
-| `plane.work-item.move` | Move a work item to another Plane state |
-| `plane.work-item.close` | Close a work item by moving it to completed state |
-
-Queries:
-
-| Query | Purpose |
-| --- | --- |
-| `plane.project.list` | List Plane projects in workspace |
-| `plane.state.list` | List states for configured project |
-| `plane.work-item.list` | List work items for configured project |
-
-HTTP endpoints:
-
-```bash
-GET  /health
-POST /commands
-POST /queries
-GET  /plane/projects
-GET  /plane/states
-GET  /plane/work-items
-POST /plane/work-items
-PATCH /plane/work-items/:workItemId
-POST /plane/work-items/:workItemId/move
-POST /plane/work-items/:workItemId/close
+make plain_agent_start
 ```
 
 #### @aipm/yandex-telemost-agent

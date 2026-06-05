@@ -24,8 +24,4 @@ export const envConfig = envConfigSchema.parse({
   logger: {
     level: envConfigRaw["LOGGER_LEVEL"],
   },
-
-  nats: {
-    url: envConfigRaw["NATS_URL"],
-  },
 });
