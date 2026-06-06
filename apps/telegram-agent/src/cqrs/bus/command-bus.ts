@@ -6,8 +6,8 @@ export class CommandBus {
   private readonly handlers = new Map<string, CommandHandler<AnyCommand>>();
 
   public register<CommandT extends AnyCommand>(
-    name: CommandT["name"],
     handler: CommandHandler<CommandT>,
+    name: CommandT["name"],
   ): void {
     this.handlers.set(name, handler as CommandHandler<AnyCommand>);
   }

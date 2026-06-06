@@ -3,6 +3,7 @@ import { jetstream } from "@nats-io/jetstream";
 import type { TelegramMessageEvent } from "../telegram/telegram-message-event";
 import type { NatsConnection } from "@nats-io/transport-node";
 
+// TODO: move to shared
 const RAW_MESSAGE_SUBJECT = "raw-data.messages";
 
 export type PublishTelegramMessageEvent = (

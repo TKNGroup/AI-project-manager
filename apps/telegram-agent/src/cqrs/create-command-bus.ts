@@ -1,25 +1,24 @@
 import { CommandBus } from "./bus/command-bus";
-import { INGEST_GROUP_MESSAGE } from "./commands/ingest-group-message.command";
-import { createIngestGroupMessageHandler } from "./handlers/ingest-group-message.handler";
+import { ingestGroupMessageCommandHandlerFactory } from "./commands/ingest-group-message.command";
 
 import type { PublishTelegramMessageEvent } from "../messaging/publish-telegram-message-event";
 import type { Logger } from "@common/logger";
 
 export type CreateCommandBusDeps = {
-  logger: Logger;
+  propsLogger: Logger;
   publishTelegramMessageEvent: PublishTelegramMessageEvent;
 };
 
-export function createCommandBus(deps: CreateCommandBusDeps): CommandBus {
+export function commandBusFactory(deps: CreateCommandBusDeps): CommandBus {
   const bus = new CommandBus();
 
-  bus.register(
-    INGEST_GROUP_MESSAGE,
-    createIngestGroupMessageHandler({
-      logger: deps.logger,
+  const ingestGroupMessageCommandHandler =
+    ingestGroupMessageCommandHandlerFactory({
+      propsLogger: deps.propsLogger,
       publishTelegramMessageEvent: deps.publishTelegramMessageEvent,
-    }),
-  );
+    });
+
+  bus.register(ingestGroupMessageCommandHandler, "ingest.group.message");
 
   return bus;
 }

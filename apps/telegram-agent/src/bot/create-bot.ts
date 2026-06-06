@@ -8,18 +8,41 @@ import type { Logger } from "@common/logger";
 
 export type CreateBotDeps = {
   token: string;
-  logger: Logger;
+  propsLogger: Logger;
   commandBus: CommandBus;
 };
 
-export function createBot(deps: CreateBotDeps): Telegraf {
-  const bot = new Telegraf(deps.token);
+export async function bootstrapBot(deps: CreateBotDeps): Promise<Telegraf> {
+  const logger = deps.propsLogger.stack("bootstrapBot");
 
-  registerStartHandler(bot);
-  registerMessageHandler(bot, {
-    logger: deps.logger,
-    commandBus: deps.commandBus,
-  });
+  try {
+    const bot = new Telegraf(deps.token);
 
-  return bot;
+    process.once("SIGINT", () => {
+      void bot.stop("SIGINT");
+    });
+
+    process.once("SIGTERM", () => {
+      void bot.stop("SIGTERM");
+    });
+
+    registerStartHandler(bot, deps.propsLogger);
+
+    registerMessageHandler(bot, {
+      propsLogger: deps.propsLogger,
+      commandBus: deps.commandBus,
+    });
+
+    await bot.launch();
+
+    logger.info("launched");
+
+    return bot;
+  } catch (error) {
+    logger.unexpectedError(error);
+
+    logger.fatal("bot cant launch");
+
+    process.exit(1);
+  }
 }
