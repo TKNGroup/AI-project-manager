@@ -5,9 +5,24 @@ up:
 down:
 	docker compose down -v
 
+nats_migration:
+	cd tooling/nats-tools && cp -n .env.example .env 2>/dev/null || true && bun run migration:up
+
 # workspace
 install:
 	bun install & uv sync
+
+
+install_js:
+	bun install --ignore-scripts
+
+telegram_deps_build:
+	cd packages/shared && bun tsc --project tsconfig.build.json
+	cd packages/cqrs && bun tsc --project tsconfig.build.json
+	cd packages/logger && bun tsc --project tsconfig.build.json
+
+telegram_agent_build_local: telegram_deps_build
+	cd apps/telegram-agent && bun tsc --project tsconfig.build.json
 
 clean:
 	bun build-tools clean
@@ -35,7 +50,7 @@ telegram_agent_build:
 	bun build-tools build --package @aipm/telegram-agent --task build
 
 telegram_agent_start:
-	cd apps/telegram-agent && bun run dist
+	cd apps/telegram-agent && bun run ./dist/index.js
 
 ## yandex telemost agent
 yandex_telemost_agent_build:
