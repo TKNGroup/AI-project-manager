@@ -4,7 +4,9 @@ import { type NodeEnv } from "@common/shared";
 import { bootstrapBot } from "./bot/create-bot";
 import { envConfig } from "./config";
 import { commandBusFactory } from "./cqrs/create-command-bus";
+import { startTelegramConfirmRequestsConsumer } from "./messaging/consume-telegram-confirm-requests";
 import { createTelegramMessageEventPublisher as publishTelegramMessageEventFactory } from "./messaging/publish-telegram-message-event";
+import { createTelegramConfirmResponsePublisher } from "./messaging/publish-telegram-confirm-response";
 import { bootstrapNatsConnection } from "./tranposrt/nats";
 
 const NODE_ENV: NodeEnv =
@@ -37,23 +39,23 @@ const natsConnection = await bootstrapNatsConnection(
 const publishTelegramMessageEvent =
   publishTelegramMessageEventFactory(natsConnection);
 
+const publishConfirmResponse =
+  createTelegramConfirmResponsePublisher(natsConnection);
+
 const commandBus = commandBusFactory({
   propsLogger: appLogger,
   publishTelegramMessageEvent: publishTelegramMessageEvent,
 });
 
-// send message
-
-// send confirm message ~ сообщение с двумя кнопками: подтвердить / отклонить
-
-type ConfirmMessageRequest = {
-  id: string;
-  chatId: string;
-  text: string; // добавляю задачу "сосали?"
-};
-
-void (await bootstrapBot({
+const bot = await bootstrapBot({
   token: envConfig.botToken,
   propsLogger: appLogger,
   commandBus: commandBus,
-}));
+  publishConfirmResponse: publishConfirmResponse,
+});
+
+startTelegramConfirmRequestsConsumer({
+  natsConnection: natsConnection,
+  bot: bot,
+  propsLogger: appLogger,
+});

@@ -1,15 +1,18 @@
 import { Telegraf } from "telegraf";
 
+import { registerConfirmCallbackHandler } from "./handlers/confirm-callback";
 import { registerMessageHandler } from "./handlers/message";
 import { registerStartHandler } from "./handlers/start";
 
 import type { CommandBus } from "../cqrs/bus/command-bus";
+import type { PublishTelegramConfirmResponse } from "../messaging/publish-telegram-confirm-response";
 import type { Logger } from "@common/logger";
 
 export type CreateBotDeps = {
   token: string;
   propsLogger: Logger;
   commandBus: CommandBus;
+  publishConfirmResponse: PublishTelegramConfirmResponse;
 };
 
 export async function bootstrapBot(deps: CreateBotDeps): Promise<Telegraf> {
@@ -31,6 +34,11 @@ export async function bootstrapBot(deps: CreateBotDeps): Promise<Telegraf> {
     registerMessageHandler(bot, {
       propsLogger: deps.propsLogger,
       commandBus: deps.commandBus,
+    });
+
+    registerConfirmCallbackHandler(bot, {
+      propsLogger: deps.propsLogger,
+      publishConfirmResponse: deps.publishConfirmResponse,
     });
 
     await bot.launch();

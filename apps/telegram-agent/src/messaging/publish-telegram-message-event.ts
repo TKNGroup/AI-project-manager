@@ -1,10 +1,9 @@
 import { jetstream } from "@nats-io/jetstream";
 
+import { NATS_SUBJECTS } from "./nats-subjects";
+
 import type { TelegramMessageEvent } from "../telegram/telegram-message-event";
 import type { NatsConnection } from "@nats-io/transport-node";
-
-// TODO: move to shared
-const RAW_MESSAGE_SUBJECT = "raw-data.messages";
 
 export type PublishTelegramMessageEvent = (
   event: TelegramMessageEvent,
@@ -16,6 +15,6 @@ export function createTelegramMessageEventPublisher(
   const js = jetstream(nc);
 
   return async (event: TelegramMessageEvent): Promise<void> => {
-    await js.publish(RAW_MESSAGE_SUBJECT, JSON.stringify(event));
+    await js.publish(NATS_SUBJECTS.rawMessage, JSON.stringify(event));
   };
 }
