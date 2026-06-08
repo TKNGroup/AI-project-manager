@@ -25,11 +25,45 @@ services:
       - aipm-network
     restart: unless-stopped
 
+  aipm-text-data-worker:
+    build:
+      context: .
+      dockerfile: apps/text-data-worker/Dockerfile
+    env_file:
+      - apps/text-data-worker/.env
+    volumes:
+      - aipm-text-data-worker-context:/data
+    networks:
+      - aipm-network
+    depends_on:
+      - aipm-pg
+      - aipm-nats
+    restart: unless-stopped
+
+  aipm-web-chat:
+    build:
+      context: .
+      dockerfile: apps/web-chat/Dockerfile
+    environment:
+      NATS_HOST: aipm-nats
+      NATS_PORT: "4222"
+      DATABASE_URL: postgresql://postgres:password@aipm-pg:5432/aipm
+    ports:
+      - "8080:8080"
+    networks:
+      - aipm-network
+    depends_on:
+      - aipm-pg
+      - aipm-nats
+    restart: unless-stopped
+
 volumes:
   aipm-database:
     name: aipm-database
   aipm-nats:
     name: aipm-nats
+  aipm-text-data-worker-context:
+    name: aipm-text-data-worker-context
 
 networks:
   aipm-network:
