@@ -1,4 +1,18 @@
 services:
+  aipm-pg:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: aipm
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - aipm-database:/data
+    ports:
+      - '5432:5432'
+    networks:
+      - aipm-network
+
   aipm-nats:
     image: nats:2.14.2-alpine3.22
     command: ["-js", "-m", "8222"]
@@ -12,6 +26,8 @@ services:
     restart: unless-stopped
 
 volumes:
+  aipm-database:
+    name: aipm-database
   aipm-nats:
     name: aipm-nats
 

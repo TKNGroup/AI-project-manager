@@ -51,3 +51,6 @@ build/
 dist/
 wheels/
 *.egg-info
+
+# Plane self-hosted env (may contain secrets)
+docker/plane/plane.env

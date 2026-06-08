@@ -33,9 +33,11 @@
         "typescript": "catalog:",
       },
     },
-    "apps/plain-agent": {
-      "name": "@aipm/plain-agent",
+    "apps/plane-agent": {
+      "name": "@aipm/plane-agent",
       "dependencies": {
+        "@common/cqrs": "workspace:*",
+        "@common/http": "workspace:*",
         "@common/logger": "workspace:*",
         "@common/shared": "workspace:*",
         "dotenv": "catalog:",
@@ -255,7 +257,7 @@
   "packages": {
     "@aipm/core": ["@aipm/core@workspace:apps/core"],
 
-    "@aipm/plain-agent": ["@aipm/plain-agent@workspace:apps/plain-agent"],
+    "@aipm/plane-agent": ["@aipm/plane-agent@workspace:apps/plane-agent"],
 
     "@aipm/shared-database": ["@aipm/shared-database@workspace:packages/shared-database"],
 
