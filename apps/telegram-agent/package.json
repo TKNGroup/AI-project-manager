@@ -1,19 +1,28 @@
 {
-    "name": "@aipm/telegram-agent",
-    "dependencies": {
-        "@common/logger": "workspace:*",
-        "@common/shared": "workspace:*",
-        "dotenv": "catalog:",
-        "zod": "catalog:"
-    },
-    "devDependencies": {
-        "@common/build-tools": "workspace:*",
-        "@common/tsconfig": "workspace:*",
-        "@common/eslint": "workspace:*",
-        "@types/bun": "catalog:",
-        "typescript": "catalog:",
-        "eslint": "catalog:",
-        "@types/pg": "catalog:",
-        "@types/jsonwebtoken": "catalog:"
-    }
+  "name": "@aipm/telegram-agent",
+  "scripts": {
+    "build": "bun tsc --project tsconfig.build.json",
+    "start": "bun ./dist/index.js",
+    "dev": "bun ./src/index.ts"
+  },
+  "dependencies": {
+    "@common/cqrs": "workspace:*",
+    "@common/logger": "workspace:*",
+    "@common/shared": "workspace:*",
+    "dotenv": "catalog:",
+    "telegraf": "^4.16.3",
+    "zod": "catalog:",
+    "@nats-io/transport-node": "catalog:",
+    "@nats-io/jetstream": "catalog:"
+  },
+  "devDependencies": {
+    "@common/build-tools": "workspace:*",
+    "@common/tsconfig": "workspace:*",
+    "@common/eslint": "workspace:*",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:",
+    "eslint": "catalog:",
+    "@types/pg": "catalog:",
+    "@types/jsonwebtoken": "catalog:"
+  }
 }

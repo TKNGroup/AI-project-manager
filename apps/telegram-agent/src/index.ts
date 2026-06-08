@@ -1,27 +1,61 @@
 import { Logger } from "@common/logger";
 import { type NodeEnv } from "@common/shared";
 
+import { bootstrapBot } from "./bot/create-bot";
 import { envConfig } from "./config";
+import { commandBusFactory } from "./cqrs/create-command-bus";
+import { startTelegramConfirmRequestsConsumer } from "./messaging/consume-telegram-confirm-requests";
+import { createTelegramMessageEventPublisher as publishTelegramMessageEventFactory } from "./messaging/publish-telegram-message-event";
+import { createTelegramConfirmResponsePublisher } from "./messaging/publish-telegram-confirm-response";
+import { bootstrapNatsConnection } from "./tranposrt/nats";
 
 const NODE_ENV: NodeEnv =
   process.env["NODE_ENV"] === undefined
     ? "development"
     : (process.env["NODE_ENV"] as NodeEnv);
 
-const logger = Logger.new(
+const appLogger = Logger.new(
   NODE_ENV,
   envConfig.logger.level,
   "aipm/telegram-agent",
 );
 
-logger.info("starting");
+appLogger.info("starting");
 
 process.on("unhandledRejection", (rejection) => {
-  logger.fatal(rejection, "unhandled rejection");
+  appLogger.fatal(rejection, "unhandled rejection");
 });
 
 process.on("uncaughtException", (exception) => {
-  logger.fatal(exception, "uncaught exception");
+  appLogger.fatal(exception, "uncaught exception");
 });
 
-// ...
+const natsConnection = await bootstrapNatsConnection(
+  envConfig.nats.host,
+  envConfig.nats.port,
+  appLogger,
+);
+
+const publishTelegramMessageEvent =
+  publishTelegramMessageEventFactory(natsConnection);
+
+const publishConfirmResponse =
+  createTelegramConfirmResponsePublisher(natsConnection);
+
+const commandBus = commandBusFactory({
+  propsLogger: appLogger,
+  publishTelegramMessageEvent: publishTelegramMessageEvent,
+});
+
+const bot = await bootstrapBot({
+  token: envConfig.botToken,
+  propsLogger: appLogger,
+  commandBus: commandBus,
+  publishConfirmResponse: publishConfirmResponse,
+});
+
+startTelegramConfirmRequestsConsumer({
+  natsConnection: natsConnection,
+  bot: bot,
+  propsLogger: appLogger,
+});

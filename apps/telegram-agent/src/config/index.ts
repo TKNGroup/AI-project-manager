@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 
 import { envConfigSchema } from "./env-config.schema";
 
-const envConfigPath = path.join(process.cwd(), ".env");
+const packageRoot = path.resolve(import.meta.dir, "..", "..");
+const envConfigPath = path.join(packageRoot, ".env");
 
 const envConfigRaw = dotenv.config({
   path: envConfigPath,
@@ -12,7 +13,7 @@ const envConfigRaw = dotenv.config({
 }).parsed;
 
 if (envConfigRaw === undefined) {
-  console.error("Failed to process dotenv.config");
+  console.error(`Failed to load .env`);
 
   process.exit(1);
 }
@@ -20,7 +21,11 @@ if (envConfigRaw === undefined) {
 export const envConfig = envConfigSchema.parse({
   host: envConfigRaw["HOST"],
   port: envConfigRaw["PORT"],
-
+  botToken: envConfigRaw["BOT_TOKEN"],
+  nats: {
+    host: envConfigRaw["NATS_HOST"],
+    port: envConfigRaw["NATS_PORT"],
+  },
   logger: {
     level: envConfigRaw["LOGGER_LEVEL"],
   },
